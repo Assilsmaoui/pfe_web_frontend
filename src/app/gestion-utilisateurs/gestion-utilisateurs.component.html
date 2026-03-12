@@ -1,0 +1,56 @@
+<div class="users-container">
+	<h2>Liste des utilisateurs</h2>
+	<button (click)="toggleAddUserForm()" class="add-user-btn">Ajouter un utilisateur</button>
+
+	<div *ngIf="showAddUserForm" class="add-user-form-container">
+		<form [formGroup]="addUserForm" (ngSubmit)="onAddUserSubmit()">
+			<div>
+				<label>Nom d'utilisateur :</label>
+				<input formControlName="username" type="text" />
+			</div>
+			<div>
+				<label>Email :</label>
+				<input formControlName="email" type="email" />
+			</div>
+			<div>
+				<label>Mot de passe :</label>
+				<input formControlName="password" type="password" />
+			</div>
+			<div>
+				<label>Domaine :</label>
+				<input formControlName="domaine" type="text" />
+			</div>
+			<div class="form-actions">
+				<button type="submit" [disabled]="addUserForm.invalid">Valider</button>
+				<button type="button" (click)="toggleAddUserForm()">Annuler</button>
+			</div>
+			<div *ngIf="addUserError" class="error-message">{{ addUserError }}</div>
+			<div *ngIf="addUserSuccess" class="success-message">{{ addUserSuccess }}</div>
+		</form>
+	</div>
+
+	<div *ngIf="loading" class="loading">Chargement...</div>
+	<div *ngIf="error" class="error-message">{{ error }}</div>
+	<table *ngIf="!loading && users.length" class="users-table">
+		<thead>
+			<tr>
+				<th>Nom d'utilisateur</th>
+				<th>Email</th>
+				<th>Statut</th>
+				<th>Domaine</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let user of users">
+				<td>{{ user.username }}</td>
+				<td>{{ user.email }}</td>
+				<td>
+					<span class="status-circle" [ngClass]="user.is_active ? 'active' : 'inactive'"></span>
+					<span>{{ user.is_active ? 'Actif' : 'Inactif' }}</span>
+				</td>
+				<td>{{ user.domaine }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<div *ngIf="!loading && !users.length && !error" class="no-users">Aucun utilisateur trouvé.</div>
+</div>

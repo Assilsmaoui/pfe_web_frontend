@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="navbar-brand">Admin Dashboard</div>
+  <ul class="navbar-links">
+    <li><a routerLink="/dashboard">Dashboard</a></li>
+    <li><a routerLink="/gestion-utilisateurs">Utilisateurs</a></li>
+    <li><a routerLink="/gestion-taches">Tâches</a></li>
+    <li><a routerLink="/activites-utilisateurs">Activités</a></li>
+    <li class="user-menu">
+      <span class="user-name" (click)="toggleMenu()">{{ adminName }} &#x25BC;</span>
+      <div class="dropdown-menu" *ngIf="showMenu">
+        <button (click)="editProfile()">Modifier profil</button>
+        <button (click)="logout()">Déconnexion</button>
+      </div>
+    </li>
+  </ul>
+</nav>
