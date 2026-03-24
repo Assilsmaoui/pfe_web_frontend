@@ -18,7 +18,7 @@ export class AppComponent {
   }
 
   isLoginPage() {
-    // Affiche la page login SANS navbar/sidebar uniquement si l'URL est exactement '/login' ou '/login/'
-    return this.currentUrl === '/login' || this.currentUrl === '/login/';
+     // Affiche la page login SANS navbar/sidebar pour toutes variantes de /login
+     return /^\/login(\/?|$)/.test(this.currentUrl);
   }
 }

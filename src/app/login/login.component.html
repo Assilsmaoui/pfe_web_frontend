@@ -1,15 +1,40 @@
-<div class="login-container">
-	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-		<h2>Connexion</h2>
-		<div class="form-group">
-			<label for="username">Nom d'utilisateur</label>
-			<input id="username" type="text" formControlName="username" placeholder="Nom d'utilisateur" />
-		</div>
-		<div class="form-group">
-			<label for="password">Mot de passe</label>
-			<input id="password" type="password" formControlName="password" placeholder="Mot de passe" />
-		</div>
-		<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
-		<button type="submit" [disabled]="loading">{{ loading ? 'Connexion...' : 'Se connecter' }}</button>
-	</form>
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <div class="brand-logo"></div>
+      <h2>PLATFORM<span><b> ADMIN</b></span></h2>
+      <p>Connectez-vous pour accéder au dashboard</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <div class="input-wrapper">
+          <span class="input-icon">👤</span>
+          <input id="username" type="text" formControlName="username" placeholder="admin_user" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <div class="input-wrapper">
+          <span class="input-icon">🔒</span>
+          <input id="password" type="password" formControlName="password" placeholder="••••••••" />
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        <span class="error-icon">⚠️</span> {{ errorMessage }}
+      </div>
+
+      <button type="submit" [disabled]="loading" class="btn-login">
+        <span *ngIf="!loading">Se connecter</span>
+        <span *ngIf="loading" class="loader"></span>
+      </button>
+    </form>
+    
+    <div class="login-footer">
+      <p>© 2026 Platform Admin • Système Sécurisé</p>
+    </div>
+  </div>
 </div>

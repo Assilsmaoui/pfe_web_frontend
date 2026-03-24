@@ -1,30 +1,156 @@
-.sidebar {
-  width: 200px;
-  background: #f5f5f5;
-  padding: 24px 0;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+:host {
+  --sidebar-width: 260px;
+  --nav-height: 75px;
+  /* Palette Blanc Cassé Professionnelle */
+  --off-white: #f8fafc;    /* Le fond de la sidebar */
+  --border-color: #e2e8f0; /* Gris très clair pour les bordures */
+  --text-main: #334155;    /* Gris ardoise pour le texte */
+  --accent-blue: #0ea5e9;  /* Bleu pour l'élément actif */
 }
-.sidebar ul {
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--nav-height));
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  
+  /* COULEUR BLANC CASSÉ */
+  background-color: var(--off-white) !important;
+  
+  /* Bordure droite fine pour séparer du body blanc */
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+/* --- HEADER --- */
+.sidebar-header {
+  padding: 24px 24px 10px 24px;
+}
+
+.menu-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8; /* Gris clair pour le titre de section */
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+/* --- NAVIGATION --- */
+.sidebar-nav {
+  flex: 1;
+  padding: 10px 12px;
+}
+
+.sidebar-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-.sidebar ul li {
-  margin-bottom: 18px;
+
+.sidebar-nav li {
+  margin-bottom: 4px;
 }
-.sidebar ul li a {
-  color: #333;
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: var(--text-main) !important;
   text-decoration: none;
-  font-weight: 500;
-  padding: 8px 24px;
-  display: block;
-  border-radius: 4px;
-  transition: background 0.2s;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
 }
-.sidebar ul li a:hover {
-  background: #e0e0e0;
+
+/* --- EFFET AU SURVOL (HOVER) --- */
+.sidebar-nav a:hover {
+  background-color: #f1f5f9; /* Un gris un poil plus foncé que le blanc cassé */
+  color: var(--accent-blue) !important;
+}
+
+/* --- ÉTAT ACTIF (Selectionné) --- */
+.active-link {
+  background-color: #eff6ff !important; /* Bleu très pâle */
+  color: var(--accent-blue) !important;
+  box-shadow: inset 0 0 0 1px rgba(14, 165, 233, 0.1);
+}
+
+.icon {
+  margin-right: 14px;
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* --- FOOTER --- */
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+}
+
+.status-label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+/* --- STYLE DES ICONES --- */
+.icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Arrière-plan pour faire ressortir le blanc */
+  background-color: #475569; /* Gris ardoise pro */
+  color: #ffffff !important;  /* L'icône elle-même en BLANC */
+  
+  border-radius: 8px;
+  margin-right: 12px;
+  font-size: 16px;
+  font-style: normal;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- EFFET AU SURVOL (HOVER) --- */
+.sidebar-nav a:hover .icon {
+  background-color: #0ea5e9; /* L'icône passe au bleu au survol */
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+}
+
+/* --- ÉTAT ACTIF (Lien sélectionné) --- */
+.active-link .icon {
+  background-color: #0ea5e9 !important; /* Bleu électrique pour l'élément actif */
+  color: #ffffff !important;
+}
+
+/* --- AJUSTEMENT DU TEXTE À CÔTÉ --- */
+.link-text {
+  color: #334155;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.active-link .link-text {
+  color: #0ea5e9 !important;
 }

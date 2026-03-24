@@ -1,0 +1,58 @@
+<div class="main-content-task"> <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h2>Nouvelle tâche</h2>
+          <p>Planifiez une action et assignez-la à un membre de l'équipe.</p>
+        </div>
+      </div>
+
+      <form class="professional-form" (submit)="onSubmit($event)">
+        <div class="form-group full-width">
+          <label for="title">Titre de la tâche</label>
+          <input id="title" type="text" name="title" placeholder="ex: Finaliser le design" required />
+        </div>
+        <div class="form-group full-width">
+          <label for="description">Description détaillée</label>
+          <textarea id="description" name="description" placeholder="Objectifs de la tâche..." rows="3" required></textarea>
+        </div>
+          <div class="form-group full-width" *ngIf="users && users.length">
+          <label for="assignedUser">Assigner à (Utilisateur)</label>
+          <select id="assignedUser" class="custom-select" name="user_id" required>
+            <option value="" disabled selected>Sélectionnez un utilisateur...</option>
+            <option *ngFor="let user of users" [value]="user?._id ? user._id : (user?.id ? user.id : '')">
+              {{ user.username }} 
+            </option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="deadline">Date limite</label>
+            <input id="deadline" type="date" name="deadline" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="priority">Priorité</label>
+            <select id="priority" name="priority" class="custom-select">
+              <option value="low">Basse</option>
+              <option value="medium" selected>Moyenne</option>
+              <option value="high">Haute</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" routerLink="/gestion-taches">Annuler</button>
+          <button type="submit" class="btn-submit">Créer la tâche</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

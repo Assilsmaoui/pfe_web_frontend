@@ -1,0 +1,47 @@
+<div class="main-content">
+  <div class="form-container">
+    <div class="form-card">
+      <div class="form-header">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h2>Créer un utilisateur</h2>
+          <p>Ajoutez un nouveau membre à votre équipe</p>
+        </div>
+      </div>
+
+      <form (submit)="onSubmit($event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="username">Nom d'utilisateur</label>
+            <input id="username" type="text" name="username" placeholder="ex: assil_admin" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input id="email" type="email" name="email" placeholder="nom@exemple.com" required />
+          </div>
+
+          <div class="form-group">
+            <label for="domaine">Domaine</label>
+            <input id="domaine" type="text" name="domaine" placeholder="ex: Marketing" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input id="password" type="password" name="password" placeholder="••••••••" required />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" routerLink="/gestion-utilisateurs">Annuler</button>
+          <button type="submit" class="btn-submit">Confirmer la création</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

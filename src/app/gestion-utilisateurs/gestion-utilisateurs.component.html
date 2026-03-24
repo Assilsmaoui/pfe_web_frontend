@@ -1,56 +1,55 @@
-<div class="users-container">
-	<h2>Liste des utilisateurs</h2>
-	<button (click)="toggleAddUserForm()" class="add-user-btn">Ajouter un utilisateur</button>
+<div class="users-page-wrapper">
+  <div class="page-header">
+    <div class="header-title">
+      <h2>Liste des utilisateurs</h2>
+      <p>Gérez les accès et les informations des membres de la plateforme</p>
+    </div>
+    <a routerLink="/gestion-utilisateurs/ajouter" class="btn-add">
+      <span class="icon">+</span> Ajouter un utilisateur
+    </a>
+  </div>
 
-	<div *ngIf="showAddUserForm" class="add-user-form-container">
-		<form [formGroup]="addUserForm" (ngSubmit)="onAddUserSubmit()">
-			<div>
-				<label>Nom d'utilisateur :</label>
-				<input formControlName="username" type="text" />
-			</div>
-			<div>
-				<label>Email :</label>
-				<input formControlName="email" type="email" />
-			</div>
-			<div>
-				<label>Mot de passe :</label>
-				<input formControlName="password" type="password" />
-			</div>
-			<div>
-				<label>Domaine :</label>
-				<input formControlName="domaine" type="text" />
-			</div>
-			<div class="form-actions">
-				<button type="submit" [disabled]="addUserForm.invalid">Valider</button>
-				<button type="button" (click)="toggleAddUserForm()">Annuler</button>
-			</div>
-			<div *ngIf="addUserError" class="error-message">{{ addUserError }}</div>
-			<div *ngIf="addUserSuccess" class="success-message">{{ addUserSuccess }}</div>
-		</form>
-	</div>
+  <div class="table-container">
+    <div *ngIf="loading" class="state-message">
+      <div class="spinner"></div> Chargement des données...
+    </div>
+    
+    <div *ngIf="error" class="error-banner">
+      <span class="icon">⚠️</span> {{ error }}
+    </div>
 
-	<div *ngIf="loading" class="loading">Chargement...</div>
-	<div *ngIf="error" class="error-message">{{ error }}</div>
-	<table *ngIf="!loading && users.length" class="users-table">
-		<thead>
-			<tr>
-				<th>Nom d'utilisateur</th>
-				<th>Email</th>
-				<th>Statut</th>
-				<th>Domaine</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let user of users">
-				<td>{{ user.username }}</td>
-				<td>{{ user.email }}</td>
-				<td>
-					<span class="status-circle" [ngClass]="user.is_active ? 'active' : 'inactive'"></span>
-					<span>{{ user.is_active ? 'Actif' : 'Inactif' }}</span>
-				</td>
-				<td>{{ user.domaine }}</td>
-			</tr>
-		</tbody>
-	</table>
-	<div *ngIf="!loading && !users.length && !error" class="no-users">Aucun utilisateur trouvé.</div>
+    <table *ngIf="!loading && users.length" class="custom-table">
+      <thead>
+        <tr>
+          <th>Utilisateur</th>
+          <th>Email</th>
+          <th>Domaine</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td class="user-cell">
+            <div class="avatar-circle">{{ user.username.charAt(0).toUpperCase() }}</div>
+            <span class="username">{{ user.username }}</span>
+          </td>
+          <td><span class="email-text">{{ user.email }}</span></td>
+          <td><span class="domain-tag">{{ user.domaine }}</span></td>
+          <td>
+            <span class="badge" [ngClass]="user.is_active ? 'badge-active' : 'badge-inactive'">
+              {{ user.is_active ? 'Actif' : 'Inactif' }}
+            </span>
+          </td>
+          <td class="text-right">
+            <button class="btn-icon">⚙️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && !users.length && !error" class="empty-state">
+      <p>Aucun utilisateur n'a été trouvé dans la base de données.</p>
+    </div>
+  </div>
 </div>

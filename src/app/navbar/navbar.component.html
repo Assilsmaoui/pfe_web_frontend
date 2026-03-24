@@ -1,16 +1,36 @@
 <nav class="navbar">
-  <div class="navbar-brand">Admin Dashboard</div>
-  <ul class="navbar-links">
-    <li><a routerLink="/dashboard">Dashboard</a></li>
-    <li><a routerLink="/gestion-utilisateurs">Utilisateurs</a></li>
-    <li><a routerLink="/gestion-taches">Tâches</a></li>
-    <li><a routerLink="/activites-utilisateurs">Activités</a></li>
-    <li class="user-menu">
-      <span class="user-name" (click)="toggleMenu()">{{ adminName }} &#x25BC;</span>
-      <div class="dropdown-menu" *ngIf="showMenu">
-        <button (click)="editProfile()">Modifier profil</button>
-        <button (click)="logout()">Déconnexion</button>
+  <div class="nav-container">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="brand-text">PLATFORM ADMIN</span>
+    </div>
+
+    <div class="nav-actions">
+      <div class="user-pill" (click)="toggleMenu()" [class.active]="showMenu">
+        <div class="avatar-wrapper">
+          <img src="https://ui-avatars.com/api/?name=Admin&background=1f2937&color=fff" alt="avatar">
+        </div>
+        <div class="user-info">
+          <span class="u-name">{{ adminName }}</span>
+          <span class="u-role">Administrateur</span>
+        </div>
+        <span class="arrow"></span>
       </div>
-    </li>
-  </ul>
+
+      <div class="premium-menu" *ngIf="showMenu">
+        <div class="menu-inner">
+          <div class="menu-section">
+            <p class="section-label">Compte</p>
+            <button (click)="editProfile()" class="menu-item">
+              <span class="m-icon">⚙️</span> Paramètres profil
+            </button>
+          </div>
+          <div class="menu-divider"></div>
+          <button (click)="logout()" class="menu-item logout">
+            <span class="m-icon">🚀</span> Déconnexion
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

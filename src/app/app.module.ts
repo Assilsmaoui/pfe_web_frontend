@@ -11,8 +11,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GestionUtilisateursComponent } from './gestion-utilisateurs/gestion-utilisateurs.component';
+import { CreateUserComponent } from './gestion-utilisateurs/create-user.component';
 import { GestionTachesComponent } from './gestion-taches/gestion-taches.component';
 import { ActivitesUtilisateursComponent } from './activites-utilisateurs/activites-utilisateurs.component';
+import { CreateTaskComponent } from './gestion-taches/create-task.component';
+import { TaskService } from './services/task.service';
 
 
 @NgModule({
@@ -23,7 +26,9 @@ import { ActivitesUtilisateursComponent } from './activites-utilisateurs/activit
     GestionUtilisateursComponent,
     GestionTachesComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    CreateUserComponent,
+    CreateTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import { ActivitesUtilisateursComponent } from './activites-utilisateurs/activit
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

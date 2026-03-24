@@ -1,74 +1,171 @@
+/* Palette de Gris Premium */
+:root {
+  --nav-gray-top: #52525b;    /* Gris Zinc moyen */
+  --nav-gray-bottom: #18181b; /* Gris Zinc quasi noir */
+  --accent-cyan: #0ea5e9;    /* Bleu électrique pour les détails */
+}
+
+/* On force le body en blanc au cas où */
+:host-context(body) {
+  background-color: #df2020 !important;
+}
+
 .navbar {
+  height: 75px;
+  /* DÉGRADÉ DE GRIS MÉTHALLIQUE */
+  background-color: #bdbcd7 !important;
+  
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0; /* Géré par le container */
+  
+  /* Ombre pour marquer la séparation avec le body blanc */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #000000;
+}
+
+.nav-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #e0e0e0;
-  padding: 12px 32px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.navbar-brand {
-  font-weight: bold;
-  font-size: 20px;
-  color: #333;
-}
-.navbar-links {
-  list-style: none;
-  display: flex;
-  gap: 24px;
-  margin: 0;
-  padding: 0;
-}
-.navbar-links li a {
-  color: #333;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.navbar-links li a:hover {
-  color: #1976d2;
 }
 
-.user-menu {
+/* --- LOGO --- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--accent-cyan);
+  border-radius: 2px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 12px var(--accent-cyan);
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+}
+
+.brand-text .thin {
+  font-weight: 300;
+  color: #fbfcfc;
+}
+
+/* --- ACTIONS & PILL --- */
+.nav-actions {
   position: relative;
 }
-.user-name {
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
   cursor: pointer;
-  font-weight: 600;
-  color: #333;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
-.user-name:hover {
-  background: #e0e0e0;
+
+.user-pill:hover, .user-pill.active {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-cyan);
 }
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 32px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  min-width: 150px;
-  z-index: 10;
+
+.avatar-wrapper img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.user-info {
   display: flex;
   flex-direction: column;
 }
-.dropdown-menu button {
-  background: none;
+
+.u-name {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.u-role {
+  color: var(--accent-cyan);
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* --- MENU PREMIUM (CORRIGÉ) --- */
+.premium-menu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 240px;
+  background: #ffffff; /* Contrasté avec la navbar mais s'aligne sur le body */
+  border-radius: 14px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.25);
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  z-index: 1001;
+}
+
+.section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
   border: none;
-  padding: 10px 16px;
-  text-align: left;
-  font-size: 15px;
-  color: #333;
+  background: none;
+  border-radius: 8px;
+  color: #334155;
+  font-weight: 600;
+  font-size: 14px;
   cursor: pointer;
-  border-bottom: 1px solid #eee;
-  transition: background 0.2s;
+  text-align: left;
 }
-.dropdown-menu button:last-child {
-  border-bottom: none;
+
+.menu-item:hover {
+  background: #f1f5f9;
+  color: var(--nav-gray-bottom);
 }
-.dropdown-menu button:hover {
-  background: #f2f2f2;
+
+.menu-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 4px 0;
+}
+
+.menu-item.logout {
+  color: #ef4444;
+}
+
+.menu-item.logout:hover {
+  background: #fef2f2;
 }

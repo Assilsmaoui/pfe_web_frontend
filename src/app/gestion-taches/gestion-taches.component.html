@@ -1,1 +1,81 @@
-<p>gestion-taches works!</p>
+<div class="main-content">
+  <div class="page-header">
+    <div class="header-title">
+      <h2>Gestion des tâches</h2>
+      <p>Suivez l'avancement des projets et les priorités de l'équipe</p>
+    </div>
+    <a routerLink="/gestion-taches/ajouter" class="btn-add-task">
+      <span class="icon">+</span> Nouvelle tâche
+    </a>
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="loading" class="state-loader">
+      <div class="spinner"></div> Chargement des tâches...
+    </div>
+
+    <div *ngIf="error" class="error-banner">{{ error }}</div>
+
+    <table *ngIf="!loading && tasks.length" class="modern-table">
+      <thead>
+        <tr>
+          <th>Tâche</th>
+          <th>Priorité</th>
+          <th>Dates (Début/Fin)</th>
+          <th>Assigné à</th>
+          <th>Statut</th>
+          <th class="text-right">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td class="task-info">
+            <span class="task-title">{{ task.title }}</span>
+            <span class="task-desc">{{ task.description | slice:0:40 }}...</span>
+          </td>
+          <td>
+            <span class="priority-tag" [ngClass]="'priority-' + task.priority.toLowerCase()">
+              {{ task.priority }}
+            </span>
+          </td>
+          <td class="date-cell">
+            <div class="date-row">📅 {{ task.start_date | date:'dd MMM' }}</div>
+            <div class="date-row end-date">🏁 {{ task.end_date | date:'dd MMM' }}</div>
+          </td>
+          <td>
+            <div class="user-stack">
+              <ng-container *ngIf="task.user_ids?.length; else aucunUser">
+                <div *ngFor="let uid of task.user_ids" class="user-badge" style="margin-bottom: 4px; margin-right: 0;">
+                  {{ getUserName(uid) }}
+                </div>
+              </ng-container>
+              <ng-template #aucunUser><span class="no-assign">Non assigné</span></ng-template>
+            </div>
+          </td>
+          <td>
+            <span class="status-pill"
+                  [ngClass]="{
+                    'status-done': task.status === 'terminé' || task.status === 'done',
+                    'status-pending': task.status === 'en cours' || task.status === 'in progress',
+                    'status-not-started': task.status === 'non commencé' || task.status === 'not started'
+                  }">
+              {{
+                task.status === 'terminé' || task.status === 'done' ? 'Terminé' :
+                task.status === 'en cours' || task.status === 'in progress' ? 'En cours' :
+                task.status === 'non commencé' || task.status === 'not started' ? 'Non commencé' :
+                (task.status || 'Inconnu')
+              }}
+            </span>
+          </td>
+          <td class="text-right">
+            <button class="btn-edit-small">⚙️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && !tasks.length && !error" class="empty-state">
+      <p>Aucune tâche pour le moment.</p>
+    </div>
+  </div>
+</div>

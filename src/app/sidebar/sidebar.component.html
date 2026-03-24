@@ -1,8 +1,41 @@
 <aside class="sidebar">
-  <ul>
-    <li><a routerLink="/dashboard">Dashboard</a></li>
-    <li><a routerLink="/gestion-utilisateurs">Utilisateurs</a></li>
-    <li><a routerLink="/gestion-taches">Tâches</a></li>
-    <li><a routerLink="/activites-utilisateurs">Activités</a></li>
-  </ul>
+  <div class="sidebar-header">
+    <span class="menu-title">NAVIGATION</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active-link">
+          <i class="icon">📊</i>
+          <span class="link-text">Tableau de bord</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/gestion-utilisateurs" routerLinkActive="active-link">
+          <i class="icon">👥</i>
+          <span class="link-text">Utilisateurs</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/gestion-taches" routerLinkActive="active-link">
+          <i class="icon">🎯</i>
+          <span class="link-text">Gestion Tâches</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/activites-utilisateurs" routerLinkActive="active-link">
+          <i class="icon">⚡</i>
+          <span class="link-text">Activités</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-status">
+      <div class="status-dot"></div>
+      <span class="status-label">Serveur Live</span>
+    </div>
+  </div>
 </aside>
