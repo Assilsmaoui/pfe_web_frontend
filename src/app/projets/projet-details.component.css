@@ -1,0 +1,12 @@
+.details-container {
+  padding: 24px;
+}
+ul {
+  margin-top: 16px;
+}
+li {
+  margin-bottom: 12px;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 6px;
+}

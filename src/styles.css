@@ -6,7 +6,7 @@
 }/* Creataion  des tâches */
 /* --- CONFIGURATION DU LAYOUT --- */
 .main-content-task{
-  margin-left: var(--sidebar-width, 220px);
+  margin-left: var(--sidebar-width, 10px);
   margin-top: var(--nav-height, 6px);
   padding: 10px;
   background-color: #f8fafc;
@@ -458,7 +458,7 @@ input:focus {
 }
 
 .users-page-wrapper {
-  margin-left: var(--sidebar-width, 200px); /* Important pour ne pas être sous la sidebar */
+  margin-left: var(--sidebar-width, 10px); /* Important pour ne pas être sous la sidebar */
   margin-top: var(--nav-height, 50px);
   padding: 40px;
   background-color: #fcfcfc;
@@ -579,6 +579,577 @@ input:focus {
 }
 
 .btn-icon:hover { opacity: 1; }
+/* Liste des Projet  */
+:host {
+  --zinc-900: #18181b;
+  --accent-cyan: #0ea5e9;
+  --border-color: #e2e8f0;
+}
+
+.projects-page-wrapper {
+  margin-left: var(--sidebar-width, 10px);
+  margin-top: var(--nav-height,1px);
+  padding: 40px;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 75px);
+}
+
+/* --- HEADER --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.header-title h2 {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--zinc-900);
+  margin: 0;
+}
+
+.btn-add-project {
+  background: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-add-project:hover {
+  transform: translateY(-2px);
+  background: #27272a;
+}
+
+/* --- GRID SYSTEM --- */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+/* --- PROJECT CARD --- */
+.project-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+.card-status-bar {
+  height: 4px;
+  width: 100%;
+  background: #cbd5e1;
+}
+
+.card-status-bar.status-terminé { background: #10b981; }
+.card-status-bar.status-en-cours { background: var(--accent-cyan); }
+
+.card-content {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.project-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--zinc-900);
+  margin: 0 0 10px 0;
+}
+
+.project-description {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  height: 42px; /* Limite à 2 lignes */
+  overflow: hidden;
+}
+
+/* --- DETAILS --- */
+.project-details {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 15px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.detail-item .label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.detail-item .value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+/* --- AVATARS --- */
+/* --- LISTE DE NOMS (BADGES) --- */
+.members-names-list {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux noms de passer à la ligne si nécessaire */
+  gap: 6px;       /* Écart entre les badges nominatifs */
+  margin-top: 4px; /* Un peu d'espace avec le label */
+}
+
+.member-name-badge {
+  background: #f0f9ff; /* Fond bleu très clair (Cyan-50) */
+  color: #0369a1;      /* Texte bleu Cyan foncé pour lisibilité (Cyan-700) */
+  padding: 4px 10px;  /* Espace interne (Haut/Bas Gauche/Droite) */
+  border-radius: 6px; /* Coins légèrement arrondis pour un look pro */
+  font-size: 12px;     /* Taille de texte adaptée */
+  font-weight: 600;    /* Texte semi-gras */
+  border: 1px solid #e0f2fe; /* Bordure discrète */
+  display: inline-block;
+}
+
+.no-members-text {
+  font-size: 13px;
+  color: #94a3b8; /* Gris clair */
+  font-style: italic;
+}
+
+/* --- FOOTER --- */
+.card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 800;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.pill-terminé { background: #ecfdf5; color: #059669; }
+.pill-en-cours { background: #f0f9ff; color: #0369a1; }
+
+.btn-view {
+  background: none;
+  border: none;
+  color: var(--accent-cyan);
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn-view:hover { text-decoration: underline; }
+/* Creation des projets */
+:host {
+  --zinc-900: #18181b;
+  --accent-cyan: #0ea5e9;
+}
+
+.main-content-add-project {
+  margin-left: var(--sidebar-width, 10px);
+  margin-top: var(--nav-height, 10px);
+  padding: 20px 30px; /* Padding réduit comme demandé */
+  background-color: #f8fafc;
+  min-height: calc(100vh - 75px);
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+}
+
+.form-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 650px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 25px 30px; /* Padding interne réduit pour plus de compacité */
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.header-icon {
+  width: 44px;
+  height: 44px;
+  background: #f0f9ff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-cyan);
+}
+
+.header-text h2 { font-size: 19px; margin: 0; color: var(--zinc-900); }
+.header-text p { font-size: 13px; color: #64748b; margin: 2px 0 0; }
+
+/* Form Elements */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
+}
+
+.full-width { grid-column: span 2; }
+
+label { font-size: 13px; font-weight: 700; color: #475569; }
+
+input, textarea, .custom-select, .multi-select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+input:focus, .multi-select:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.select-hint { font-size: 11px; color: #94a3b8; margin: -2px 0 4px; }
+
+.multi-select {
+  min-height: 120px;
+  background: #fcfdfe;
+}
+
+/* Actions */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-submit {
+  background: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit:hover { background: #27272a; transform: translateY(-1px); }
+
+.btn-cancel {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* detail de chque projet */
+:host {
+  --zinc-900: #18181b;
+  --accent-cyan: #0ea5e9;
+  --border: #e2e8f0;
+}
+
+.project-details-wrapper {
+  margin-left: var(--sidebar-width, 10px);
+  margin-top: var(--nav-height, 1px);
+  padding: 20px 30px; /* Padding optimisé */
+  background-color: #f8fafc;
+  min-height: calc(100vh - 75px);
+}
+
+/* --- HEADER --- */
+.page-header {
+  margin-bottom: 25px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn-back {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: var(--zinc-900);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.header-text h2 { font-size: 22px; margin: 0; color: var(--zinc-900); }
+.header-text p { font-size: 13px; color: #64748b; margin: 2px 0 0; }
+
+/* --- CARD --- */
+.details-card {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h3 { font-size: 16px; margin: 0; color: #334155; }
+.task-count { font-size: 12px; background: #f1f5f9; padding: 4px 10px; border-radius: 20px; color: #64748b; font-weight: 700; }
+
+/* --- TABLE --- */
+.details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.details-table th {
+  background: #f8fafc;
+  padding: 12px 25px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+.details-table td {
+  padding: 15px 25px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.task-info { display: flex; flex-direction: column; }
+.task-title { font-weight: 700; color: var(--zinc-900); font-size: 14px; }
+.task-desc { font-size: 12px; color: #94a3b8; }
+
+/* --- BADGES --- */
+.priority-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+.prio-high { background: #fef2f2; color: #ef4444; }
+.prio-medium { background: #fffbeb; color: #d97706; }
+.prio-low { background: #f0fdf4; color: #22c55e; }
+
+.status-indicator {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.status-indicator::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+.status-done::before { background: #10b981; }
+.status-todo::before { background: #0ea5e9; }
+
+/* --- MEMBRES --- */
+.members-stack { display: flex; flex-wrap: wrap; gap: 4px; }
+.name-pill {
+  background: #f0f9ff;
+  color: #0369a1;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid #e0f2fe;
+}
+.unassigned { font-size: 11px; color: #cbd5e1; font-style: italic; }
+
+/* --- EMPTY STATE --- */
+.empty-state {
+  padding: 50px;
+  text-align: center;
+  color: #94a3b8;
+}
+.empty-icon { font-size: 40px; margin-bottom: 10px; }
+/* ajouter tache par projet*/
+:host {
+  --zinc-900: #18181b;
+  --accent-cyan: #0ea5e9;
+  --border: #e2e8f0;
+}
+
+.main-content-add-tasks {
+  margin-left: var(--sidebar-width, 10px);
+  margin-top: var(--nav-height, 75px);
+  padding: 20px 30px;
+  background-color: #f8fafc;
+  min-height: calc(100vh - 75px);
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-text h2 { font-size: 22px; color: var(--zinc-900); margin: 0; }
+.header-text p { font-size: 13px; color: #64748b; margin-top: 4px; }
+
+/* Grille de cartes */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.tache-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
+}
+
+.card-header {
+  padding: 12px 20px;
+  background: #fcfdfe;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 12px 12px 0 0;
+}
+
+.task-number { font-size: 12px; font-weight: 800; color: var(--accent-cyan); text-transform: uppercase; }
+
+.card-body { padding: 20px; }
+
+/* Form Elements */
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 15px; }
+.full-width { grid-column: span 2; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+label { font-size: 12px; font-weight: 700; color: #475569; }
+
+input, textarea, .custom-select, .multi-select-small {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+  background: #f0f9ff44;
+}
+
+.multi-select-small { height: 80px; }
+
+/* Buttons */
+.btn-add-outline {
+  color: var(--zinc-900);
+  border: 2px solid var(--zinc-900);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.2s;
+}
+
+.btn-remove:hover { opacity: 1; transform: scale(1.1); }
+
+.form-footer {
+  position: sticky;
+  bottom: 0;
+  background: #f8fafc;
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  text-align: right;
+}
+
+.btn-submit-all {
+  background: #18181b;;
+  color: white;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.3);
+}
+
+.btn-submit-all:hover { filter: brightness(1.1); transform: translateY(-1px); }
 /* You can add global styles to this file, and also import other style files */
 /* Styles globaux pour tous les composants */
 /* login */

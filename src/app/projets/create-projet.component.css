@@ -1,0 +1,13 @@
+.projets-container {
+  padding: 24px;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+select[multiple] {
+  min-width: 220px;
+  min-height: 120px;
+  font-size: 1rem;
+}

@@ -1,0 +1,77 @@
+<div class="main-content-add-tasks">
+  <div class="page-container">
+    <div class="header-section">
+      <div class="header-text" style="display: flex; align-items: center; gap: 16px;">
+        <button (click)="retour()" class="btn-back">
+          <span class="icon">←</span> Retour
+        </button>
+        <h2 style="margin: 0;">Planification des tâches du projet <span *ngIf="nomProjet">- {{ nomProjet }}</span></h2>
+       
+      </div>
+      <button type="button" class="btn-add-outline" (click)="addTaskForm()">
+        <span>+</span> Ajouter une tâche
+      </button>
+    </div>
+
+    <form (ngSubmit)="submitTaches()" class="tasks-form">
+      <div class="tasks-grid">
+        <div *ngFor="let tache of taches; let i = index" class="tache-card">
+          <div class="card-header">
+            <span class="task-number">Tâche #{{ i + 1 }}</span>
+            <button type="button" class="btn-remove" (click)="removeTaskForm(i)" *ngIf="taches.length > 1" title="Supprimer">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="card-body">
+            <div class="form-group full-width">
+              <label>Titre de la tâche</label>
+              <input [(ngModel)]="tache.title" name="title{{i}}" placeholder="ex: Analyse des besoins" required />
+            </div>
+
+            <div class="form-group full-width">
+              <label>Description</label>
+              <textarea [(ngModel)]="tache.description" name="description{{i}}" placeholder="Détails de l'exécution..." rows="2"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Assigner à</label>
+              <select multiple [(ngModel)]="tache.user_ids" name="user_ids{{i}}" class="multi-select-small">
+                <option *ngFor="let membre of membresProjet" [value]="membre._id">
+                  {{ membre.username }} ({{ membre.domaine }})
+                </option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Début</label>
+                <input type="date" [(ngModel)]="tache.start_date" name="start_date{{i}}" />
+              </div>
+              <div class="form-group">
+                <label>Échéance</label>
+                <input type="date" [(ngModel)]="tache.end_date" name="end_date{{i}}" />
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label>Priorité</label>
+              <select [(ngModel)]="tache.priority" name="priority{{i}}" class="custom-select">
+                <option value="Basse">Basse</option>
+                <option value="Moyenne">Moyenne</option>
+                <option value="Haute">Haute</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="btn-submit-all">Enregistrer toutes les tâches</button>
+      </div>
+    </form>
+  </div>
+</div>

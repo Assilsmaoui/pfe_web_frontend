@@ -1,0 +1,17 @@
+.ajout-taches-container {
+  padding: 24px;
+}
+.tache-form-block {
+  margin-bottom: 18px;
+  background: #f7f7f7;
+  padding: 12px;
+  border-radius: 6px;
+}
+input, select {
+  margin: 4px 0 10px 0;
+  display: block;
+  width: 100%;
+}
+button {
+  margin-right: 8px;
+}

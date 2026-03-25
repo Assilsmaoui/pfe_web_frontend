@@ -1,7 +1,5 @@
 <aside class="sidebar">
-  <div class="sidebar-header">
-    <span class="menu-title">NAVIGATION</span>
-  </div>
+
 
   <nav class="sidebar-nav">
     <ul>
@@ -17,12 +15,19 @@
           <span class="link-text">Utilisateurs</span>
         </a>
       </li>
+         <li>
+        <a routerLink="/projets" routerLinkActive="active-link">
+          <i class="icon">📁</i>
+          <span class="link-text">Projets</span>
+        </a>
+      </li>
       <li>
         <a routerLink="/gestion-taches" routerLinkActive="active-link">
           <i class="icon">🎯</i>
           <span class="link-text">Gestion Tâches</span>
         </a>
       </li>
+   
       <li>
         <a routerLink="/activites-utilisateurs" routerLinkActive="active-link">
           <i class="icon">⚡</i>
@@ -32,10 +37,5 @@
     </ul>
   </nav>
 
-  <div class="sidebar-footer">
-    <div class="user-status">
-      <div class="status-dot"></div>
-      <span class="status-label">Serveur Live</span>
-    </div>
-  </div>
+
 </aside>

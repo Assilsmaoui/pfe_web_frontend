@@ -1,0 +1,50 @@
+<div class="projects-page-wrapper">
+  <div class="page-header">
+    <div class="header-title">
+      <h2>Liste des Projets</h2>
+      <p>Gérez et suivez l'état d'avancement de vos dossiers clients.</p>
+    </div>
+    <button routerLink="/projets/ajouter" class="btn-add-project">
+      <span class="icon">+</span> Nouveau Projet
+    </button>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card" *ngFor="let projet of projets">
+      <div class="card-status-bar" [ngClass]="'status-' + projet.statut?.toLowerCase()"></div>
+      
+      <div class="card-content">
+        <div class="project-main">
+          <h3 class="project-name">{{ projet.nom_projet || projet.nom }}</h3>
+          <p class="project-description">{{ projet.description }}</p>
+        </div>
+
+        <div class="project-details">
+          <div class="detail-item">
+            <span class="label">📅 Période</span>
+            <span class="value">{{ projet.date_debut | date:'dd/MM' }} — {{ projet.date_fin | date:'dd/MM/yyyy' }}</span>
+          </div>
+
+          <div class="detail-item">
+            <span class="label">👥 Équipe</span>
+         <div class="members-names-list"> <span class="member-name-badge" *ngFor="let membreId of projet.membres">
+    {{ getUsernameById(membreId) }} </span>
+  <span class="no-members-text" *ngIf="!projet.membres?.length">Non assigné</span>
+</div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="status-pill" [ngClass]="'pill-' + projet.statut?.toLowerCase()">
+            {{ projet.statut }}
+          </span>
+          <a class="btn-view" [routerLink]="['/projets', projet._id, 'details']">Détails →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!projets?.length" class="empty-state">
+    <p>Aucun projet n'a été créé pour le moment.</p>
+  </div>
+</div>

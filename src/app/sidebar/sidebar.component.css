@@ -5,7 +5,7 @@
   --off-white: #f8fafc;    /* Le fond de la sidebar */
   --border-color: #e2e8f0; /* Gris très clair pour les bordures */
   --text-main: #334155;    /* Gris ardoise pour le texte */
-  --accent-blue: #0ea5e9;  /* Bleu pour l'élément actif */
+  --accent-blue: #807fa7 !important;  /* Bleu pour l'élément actif */
 }
 
 .sidebar {
@@ -133,14 +133,14 @@
 
 /* --- EFFET AU SURVOL (HOVER) --- */
 .sidebar-nav a:hover .icon {
-  background-color: #0ea5e9; /* L'icône passe au bleu au survol */
+  background-color:#807fa7 !important;/* L'icône passe au bleu au survol */
   transform: scale(1.1);
   box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
 }
 
 /* --- ÉTAT ACTIF (Lien sélectionné) --- */
 .active-link .icon {
-  background-color: #0ea5e9 !important; /* Bleu électrique pour l'élément actif */
+  background-color:#807fa7 !important; /* Bleu électrique pour l'élément actif */
   color: #ffffff !important;
 }
 
@@ -152,5 +152,5 @@
 }
 
 .active-link .link-text {
-  color: #0ea5e9 !important;
+  color:#807fa7 !important;
 }
