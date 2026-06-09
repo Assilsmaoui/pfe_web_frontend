@@ -1,3 +1,31 @@
+.main-content-add-project {
+  padding: 24px;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-back {
+  border: none;
+  background: #e9eef9;
+  color: #1f2937;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-back:hover {
+  background: #dce5f7;
+}
+
 .projets-container {
   padding: 24px;
 }

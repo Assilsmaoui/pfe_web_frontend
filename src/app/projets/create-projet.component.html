@@ -1,7 +1,12 @@
 <div class="main-content-add-project">
   <div class="form-container">
     <div class="form-card">
+
       <div class="form-header">
+        <button (click)="retour()" class="btn-back" type="button">
+          <span class="icon">←</span> Retour
+        </button>
+
         <div class="header-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -10,37 +15,63 @@
             <line x1="9" y1="17" x2="11" y2="17"></line>
           </svg>
         </div>
+
         <div class="header-text">
-          <h2>Nouveau Projet</h2>
+          <h2>{{ isEditMode ? 'Modifier Projet' : 'Nouveau Projet' }}</h2>
           <p>Configurez les détails, les dates et l'équipe assignée.</p>
         </div>
       </div>
 
-      <form (ngSubmit)="addProjet()" class="professional-form">
+      <!-- 🔥 IMPORTANT: submitProjet() pour CREATE + UPDATE -->
+      <form (ngSubmit)="submitProjet()" class="professional-form">
+
         <div class="form-group full-width">
           <label>Nom du projet</label>
-          <input [(ngModel)]="newProjet.nom_projet" name="nom_projet" placeholder="ex: Refonte Site E-commerce" required />
+          <input
+            [(ngModel)]="newProjet.nom_projet"
+            name="nom_projet"
+            placeholder="ex: Refonte Site E-commerce"
+            required
+          />
         </div>
 
         <div class="form-group full-width">
           <label>Description du projet</label>
-          <textarea [(ngModel)]="newProjet.description" name="description" placeholder="Objectifs et périmètre du projet..." rows="3"></textarea>
+          <textarea
+            [(ngModel)]="newProjet.description"
+            name="description"
+            placeholder="Objectifs et périmètre du projet..."
+            rows="3"
+          ></textarea>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label>Date de début</label>
-            <input type="date" [(ngModel)]="newProjet.date_debut" name="date_debut" />
+            <input
+              type="date"
+              [(ngModel)]="newProjet.date_debut"
+              name="date_debut"
+            />
           </div>
+
           <div class="form-group">
-            <label>Date de fin (Echéance)</label>
-            <input type="date" [(ngModel)]="newProjet.date_fin" name="date_fin" />
+            <label>Date de fin (Échéance)</label>
+            <input
+              type="date"
+              [(ngModel)]="newProjet.date_fin"
+              name="date_fin"
+            />
           </div>
         </div>
 
         <div class="form-group full-width">
           <label>Statut initial</label>
-          <select [(ngModel)]="newProjet.statut" name="statut" class="custom-select">
+          <select
+            [(ngModel)]="newProjet.statut"
+            name="statut"
+            class="custom-select"
+          >
             <option value="En cours">En cours</option>
             <option value="Planifié">Planifié</option>
             <option value="En attente">En attente</option>
@@ -49,8 +80,16 @@
 
         <div class="form-group full-width">
           <label>Membres de l'équipe (Sélection multiple)</label>
-          <p class="select-hint">Maintenez Ctrl (ou Cmd) pour choisir plusieurs personnes</p>
-          <select multiple [(ngModel)]="newProjet.membres" name="membres" class="multi-select">
+          <p class="select-hint">
+            Maintenez Ctrl (ou Cmd) pour choisir plusieurs personnes
+          </p>
+
+          <select
+            multiple
+            [(ngModel)]="newProjet.membres"
+            name="membres"
+            class="multi-select"
+          >
             <option *ngFor="let user of users" [value]="user._id">
               {{ user.username }} — {{ user.domaine || 'Sans domaine' }}
             </option>
@@ -58,10 +97,17 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-cancel" (click)="annuler()">Annuler</button>
-          <button type="submit" class="btn-submit">Créer le projet</button>
+          <button type="button" class="btn-cancel" (click)="annuler()">
+            Annuler
+          </button>
+
+          <button type="submit" class="btn-submit">
+            {{ isEditMode ? 'Modifier le projet' : 'Créer le projet' }}
+          </button>
         </div>
+
       </form>
+
     </div>
   </div>
 </div>

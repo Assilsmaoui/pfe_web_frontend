@@ -1,0 +1,70 @@
+<div class="main-content">
+  <div class="page-header">
+    <div class="header-title">
+      <h2>Logs d'activité</h2>
+      <p>Historique complet des actions effectuées sur la plateforme</p>
+    </div>
+    <button class="btn-export">
+      <span class="icon">📥</span> Exporter
+    </button>
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="loading" class="state-loader">
+      <div class="spinner"></div> Chargement des logs...
+    </div>
+    <div *ngIf="error" class="error-banner">{{ error }}</div>
+
+    <table *ngIf="!loading && logs.length" class="modern-table">
+      <thead>
+        <tr>
+          <th>Utilisateur</th>
+          <th>Début / Fin</th>
+          <th>Action</th>
+          <th>Détails</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td class="user-cell">
+            <div class="user-info">
+              <span class="user-name">{{ log.username || 'Utilisateur inconnu' }}</span>
+              <span class="user-id">ID: {{ log.user_id || '-' }}</span>
+            </div>
+          </td>
+          <td class="date-cell">
+            <div class="date-row">📅 {{ log.start | date:'dd MMM yyyy' }} à {{ log.start | date:'HH:mm' }}</div>
+            <div class="date-row end-date" *ngIf="log.end">🏁 {{ log.end | date:'HH:mm' }}</div>
+          </td>
+          <td>
+            <span class="action-tag">{{ log.action || '-' }}</span>
+          </td>
+          <td class="details-cell">
+            <span class="text-muted">{{ log.details || '-' }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="!loading && logs.length && totalPages > 1" class="pagination-wrapper">
+      <div class="pagination-info">
+        Page <strong>{{ page }}</strong> sur <strong>{{ totalPages }}</strong>
+        <span class="total-badge">{{ total }} logs</span>
+      </div>
+      <div class="pagination-controls">
+        <button class="pagination-btn" (click)="onPageChange(page - 1)" [disabled]="page === 1">
+          <span class="arrow">&lsaquo;</span> Précédent
+        </button>
+        <div class="page-indicator">{{ page }}</div>
+        <button class="pagination-btn" (click)="onPageChange(page + 1)" [disabled]="page === totalPages">
+          Suivant <span class="arrow">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && !logs.length && !error" class="empty-state">
+      <div class="empty-icon">📜</div>
+      <p>Aucun log d'activité trouvé.</p>
+    </div>
+  </div>
+</div>

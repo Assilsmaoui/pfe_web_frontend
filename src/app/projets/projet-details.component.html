@@ -15,7 +15,10 @@
     <div class="card-header">
       <h3>Tâches associées au projet</h3>
       <span class="task-count">{{ tasks.length }} tâches</span>
-      <a class="btn-add-task" [routerLink]="['/projets', projectId, 'ajouter-taches']">Nouvelle tâche</a>
+
+      <a class="btn-add-task" [routerLink]="['/projets', projectId, 'ajouter-taches']">
+        Nouvelle tâche
+      </a>
     </div>
 
     <div class="table-responsive" *ngIf="tasks.length > 0; else noTasks">
@@ -27,22 +30,30 @@
             <th>Échéance</th>
             <th>Équipe</th>
             <th>Statut</th>
+            <th>Actions</th>
           </tr>
         </thead>
+
         <tbody>
           <tr *ngFor="let task of tasks">
+
             <td class="task-info">
               <span class="task-title">{{ task.title }}</span>
               <span class="task-desc">{{ task.description }}</span>
             </td>
+
             <td>
               <span class="priority-badge" [ngClass]="'prio-' + task.priority?.toLowerCase()">
                 {{ task.priority }}
               </span>
             </td>
+
             <td class="date-cell">
-              <span class="date-label">Fin: {{ task.end_date | date:'dd MMM yyyy' }}</span>
+              <span class="date-label">
+                Fin: {{ task.end_date | date:'dd MMM yyyy' }}
+              </span>
             </td>
+
             <td>
               <div class="members-stack">
                 <ng-container *ngIf="task.user_ids?.length; else emptyAssign">
@@ -50,14 +61,44 @@
                     {{ getUsernameById(membreId) }}
                   </span>
                 </ng-container>
-                <ng-template #emptyAssign><span class="unassigned">Libre</span></ng-template>
+
+                <ng-template #emptyAssign>
+                  <span class="unassigned">Libre</span>
+                </ng-template>
               </div>
             </td>
+
             <td>
               <span class="status-indicator" [ngClass]="'status-' + task.status?.toLowerCase()">
                 {{ task.status }}
               </span>
             </td>
+
+            <!-- ⭐ ACTIONS -->
+           <td class="text-right actions-cell">
+  <div class="actions-buttons-group">
+    
+    <button
+      type="button"
+      class="btn-icon-only btn-edit-task"
+      title="Modifier la tâche"
+      (click)="editTask(task)"
+      [routerLink]="['/tasks', task._id, 'edit']"
+    >
+      <i class="fa-solid fa-pen-to-square"></i>
+    </button>
+
+    <button
+      type="button"
+      class="btn-icon-only btn-delete-task"
+      title="Supprimer la tâche"
+      (click)="confirmDelete(task._id)"
+    >
+      <i class="fa-solid fa-trash"></i>
+    </button>
+
+  </div>
+</td>
           </tr>
         </tbody>
       </table>
@@ -69,5 +110,32 @@
         <p>Aucune tâche n'a encore été créée pour ce projet.</p>
       </div>
     </ng-template>
+  </div>
+</div>
+<div class="popup-overlay" *ngIf="showDeletePopup">
+  <div class="popup-container">
+    
+    <div class="popup-alert-icon-container">
+      <i class="fa-solid fa-trash-can popup-trash-icon"></i>
+    </div>
+
+    <div class="popup-header">
+      <h3>Confirmation de suppression</h3>
+    </div>
+
+    <div class="popup-body">
+      <p>Voulez-vous vraiment supprimer cette tâche ? Cette action est irréversible.</p>
+    </div>
+
+    <div class="popup-footer">
+      <button type="button" class="btn-cancel" (click)="cancelDelete()">
+        Annuler
+      </button>
+
+      <button type="button" class="btn-confirm-delete" (click)="deleteTaskConfirmed()">
+        Oui, supprimer
+      </button>
+    </div>
+
   </div>
 </div>

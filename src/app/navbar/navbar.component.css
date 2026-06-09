@@ -5,11 +5,6 @@
   --accent-cyan: #0ea5e9;    /* Bleu électrique pour les détails */
 }
 
-/* On force le body en blanc au cas où */
-:host-context(body) {
-  background-color: #df2020 !important;
-}
-
 .navbar {
   height: 75px;
   /* DÉGRADÉ DE GRIS MÉTHALLIQUE */
@@ -24,14 +19,12 @@
   
   /* Ombre pour marquer la séparation avec le body blanc */
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid #000000;
 }
 
 .nav-container {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;

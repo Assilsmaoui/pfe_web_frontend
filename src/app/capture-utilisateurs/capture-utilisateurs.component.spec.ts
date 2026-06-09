@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActivitesUtilisateursComponent } from './activites-utilisateurs.component';
+import { ActivitesUtilisateursComponent } from './capture-utilisateurs.component';
 
 describe('ActivitesUtilisateursComponent', () => {
   let component: ActivitesUtilisateursComponent;

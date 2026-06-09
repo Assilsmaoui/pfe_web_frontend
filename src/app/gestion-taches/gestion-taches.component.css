@@ -1,0 +1,255 @@
+/* ==========================================================================
+   DESIGN POPUP DE CONFIRMATION (GESTION DES TÂCHES)
+   ========================================================================== */
+
+/* 1. L'arrière-plan flouté (Overlay) qui couvre tout l'écran */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 24, 27, 0.40); /* Base Zinc-900 */
+  backdrop-filter: blur(5px);         /* Effet de flou moderne */
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;            /* Centre horizontalement */
+  align-items: center;                /* Centre verticalement */
+  z-index: 9999;                      /* Reste au-dessus de tout */
+  padding: 20px;
+}
+
+/* 2. La boîte blanche centrale */
+.popup-container {
+  width: 420px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 20px;                /* Coins arrondis premium */
+  padding: 32px 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  animation: popupFadeReveal 0.22s ease-out; /* Animation d'entrée fluide */
+}
+
+/* 3. L'icône rouge de poubelle */
+.popup-alert-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #ef4444;                     /* Rouge alerte */
+}
+
+.popup-trash-icon {
+  font-size: 44px;                    /* Grosse icône centrée */
+}
+
+/* 4. Titres et textes */
+.popup-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #18181b;                     /* Zinc-900 */
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.popup-body p {
+  font-size: 14px;
+  color: #64748b;                     /* Slate-500 */
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 26px;
+}
+
+/* 5. Zone des boutons alignés côte à côte */
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;                          /* Écart entre les boutons */
+}
+
+/* Bouton Annuler (Gris/Blanc discret) */
+.btn-cancel {
+  background-color: white;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;                            /* Largeur équitable */
+}
+
+.btn-cancel:hover {
+  background-color: #f8fafc;
+  border-color: #a0aec0;
+  color: #18181b;
+}
+
+/* Bouton Supprimer (Dégradé Rouge Premium) */
+.btn-confirm-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  transition: all 0.2s ease;
+  flex: 1;                            /* Largeur équitable */
+}
+
+.btn-confirm-delete:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-confirm-delete:active {
+  transform: translateY(0);
+}
+
+/* 6. Animation zoom + fondu */
+@keyframes popupFadeReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+/* ==========================================================================
+   DESIGN UNIQUE : POPUP DE CONFIRMATION (GESTION DES TÂCHES)
+   ========================================================================== */
+
+/* Arrière-plan flouté (Overlay) qui couvre tout l'écran */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 24, 27, 0.40); /* Teinte sombre Zinc-900 */
+  backdrop-filter: blur(5px);         /* Effet de flou moderne */
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;            /* Centre horizontalement */
+  align-items: center;                /* Centre verticalement */
+  z-index: 9999;                      /* Reste au-dessus de tout le reste */
+  padding: 20px;
+}
+
+/* Boîte blanche centrale (Le conteneur du popup) */
+.popup-container {
+  width: 420px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 20px;                /* Coins arrondis premium */
+  padding: 32px 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+  animation: popupFadeReveal 0.22s ease-out; /* Animation d'entrée fluide */
+}
+
+/* Zone de l'icône rouge de poubelle */
+.popup-alert-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #ef4444;                     /* Rouge alerte */
+}
+
+.popup-trash-icon {
+  font-size: 44px;                    /* Taille de l'icône centrale */
+}
+
+/* Titre du popup */
+.popup-header h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #18181b;                     /* Zinc-900 */
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Texte de description */
+.popup-body p {
+  font-size: 14px;
+  color: #64748b;                     /* Slate-500 */
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 26px;
+}
+
+/* Zone des boutons alignés côte à côte */
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  gap: 12px;                          /* Écart entre les boutons */
+}
+
+/* Bouton "Non, annuler" (Gris/Blanc discret) */
+.btn-cancel {
+  background-color: white;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;                            /* Largeur équitable pour les deux boutons */
+}
+
+.btn-cancel:hover {
+  background-color: #f8fafc;
+  border-color: #a0aec0;
+  color: #18181b;
+}
+
+/* Bouton "Oui, supprimer" (Dégradé Rouge Premium) */
+.btn-confirm-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  transition: all 0.2s ease;
+  flex: 1;                            /* Largeur équitable pour les deux boutons */
+}
+
+.btn-confirm-delete:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-confirm-delete:active {
+  transform: translateY(0);
+}
+
+/* Animation zoom + fondu à l'apparition */
+@keyframes popupFadeReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

@@ -1,1 +1,181 @@
-/* This file has been emptied to use only styles.css */
+/* ==========================================================================
+   ALIGNEMENT ET DESIGN DES BOUTONS DE L'ACTION DU TABLEAU
+   ========================================================================== */
+.actions-buttons-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; /* Espace équilibré entre chaque bouton d'action */
+}
+
+.btn-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+/* Bouton Modifier */
+.btn-edit {
+  background-color: white;
+  border: 1px solid var(--border);
+  color: #475569;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: var(--zinc-900);
+}
+
+/* Bouton Supprimer (Dans le tableau) */
+.btn-delete {
+  background-color: #fff5f5;
+  border: 1px solid #fee2e2;
+  color: #ef4444;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+
+/* ==========================================================================
+   Nouveau DESIGN POUR LA MODAL (Même charte Zinc & Flou d'arrière-plan)
+   ========================================================================== */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 24, 27, 0.40); /* Base var(--zinc-900) */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.modal-content {
+  width: 420px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 20px; /* Aligné sur votre table-container */
+  padding: 32px 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+  text-align: center;
+  animation: modalAnimationReveal 0.22s ease-out;
+}
+
+.modal-alert-icon {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.modal-content h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--zinc-900);
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 26px;
+}
+
+/* Mise en évidence du nom de l'utilisateur ciblé */
+.delete-target {
+  color: var(--zinc-900);
+  background-color: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+/* Boutons d'actions de la modal */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-cancel {
+  background-color: white;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.btn-cancel:hover {
+  background-color: #f8fafc;
+  border-color: #a0aec0;
+  color: var(--zinc-900);
+}
+
+/* Bouton rouge destructif de confirmation finale */
+.btn-confirm-delete {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+  transition: all 0.2s ease;
+  flex: 1;
+}
+
+.btn-confirm-delete:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.35);
+}
+
+.btn-confirm-delete:active {
+  transform: translateY(0);
+}
+
+/* Animation fluide d'affichage */
+@keyframes modalAnimationReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

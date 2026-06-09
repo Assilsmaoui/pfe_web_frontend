@@ -1,12 +1,10 @@
-<div class="main-content">
+<div class="users-page-wrapper">
   <div class="page-header">
     <div class="header-title">
       <h2>Gestion des tâches</h2>
       <p>Suivez l'avancement des projets et les priorités de l'équipe</p>
     </div>
-    <a routerLink="/gestion-taches/ajouter" class="btn-add-task">
-      <span class="icon">+</span> Nouvelle tâche
-    </a>
+  
   </div>
 
   <div class="table-container">
@@ -27,21 +25,26 @@
           <th class="text-right">Action</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let task of tasks">
+
           <td class="task-info">
             <span class="task-title">{{ task.title }}</span>
             <span class="task-desc">{{ task.description | slice:0:40 }}...</span>
           </td>
+
           <td>
             <span class="priority-tag" [ngClass]="'priority-' + task.priority.toLowerCase()">
               {{ task.priority }}
             </span>
           </td>
+
           <td class="date-cell">
-            <div class="date-row">📅 {{ task.start_date | date:'dd MMM' }}</div>
-            <div class="date-row end-date">🏁 {{ task.end_date | date:'dd MMM' }}</div>
+            <div class="date-row"> {{ task.start_date | date:'dd MMM' }}</div>
+            <div class="date-row end-date">{{ task.end_date | date:'dd MMM' }}</div>
           </td>
+
           <td>
             <div class="user-stack">
               <ng-container *ngIf="task.user_ids?.length; else aucunUser">
@@ -49,9 +52,12 @@
                   {{ getUserName(uid) }}
                 </div>
               </ng-container>
-              <ng-template #aucunUser><span class="no-assign">Non assigné</span></ng-template>
+              <ng-template #aucunUser>
+                <span class="no-assign">Non assigné</span>
+              </ng-template>
             </div>
           </td>
+
           <td>
             <span class="status-pill"
                   [ngClass]="{
@@ -67,15 +73,94 @@
               }}
             </span>
           </td>
-          <td class="text-right">
-            <button class="btn-edit-small">⚙️</button>
-          </td>
+
+     <td class="text-right">
+  <div class="actions-buttons-group">
+    <a
+      class="btn-view"
+      [routerLink]="getTaskId(task) ? ['/user-activity-detail', getTaskId(task)] : null"
+      [attr.aria-disabled]="!getTaskId(task)"
+      title="Voir activité">
+      Détails →
+    </a>
+
+    <button 
+      type="button"
+      class="btn-icon-only btn-edit" 
+      title="Modifier tâche"
+      (click)="editTask(task)"
+    >
+      <i class="fa-solid fa-pen-to-square"></i>   
+    </button>
+
+    <button 
+      type="button"
+      class="btn-icon-only btn-delete-task" 
+      title="Supprimer tâche"
+      (click)="confirmDelete(getTaskId(task)!)"
+    >
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
+</td>
+
         </tr>
       </tbody>
     </table>
 
+    <!-- Pagination -->
+    <div *ngIf="!loading && tasks.length && totalPages > 1" class="pagination-wrapper">
+      <div class="pagination-info">
+        Page <strong>{{ page }}</strong> sur <strong>{{ totalPages }}</strong>
+        <span class="total-badge">{{ total }} tâches</span>
+      </div>
+
+      <div class="pagination-controls">
+        <button class="pagination-btn" (click)="onPageChange(page - 1)" [disabled]="page === 1">
+          <span class="arrow">&lsaquo;</span> Précédent
+        </button>
+
+        <div class="page-indicator">
+          {{ page }}
+        </div>
+
+        <button class="pagination-btn" (click)="onPageChange(page + 1)" [disabled]="page === totalPages">
+          Suivant <span class="arrow">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
+
     <div *ngIf="!loading && !tasks.length && !error" class="empty-state">
       <p>Aucune tâche pour le moment.</p>
     </div>
+
+  </div>
+</div>
+
+<div class="popup-overlay" *ngIf="showDeletePopup">
+  <div class="popup-container">
+    
+    <div class="popup-alert-icon-container">
+      <i class="fa-solid fa-trash-can popup-trash-icon"></i>
+    </div>
+
+    <div class="popup-header">
+      <h3>Confirmation de suppression</h3>
+    </div>
+
+    <div class="popup-body">
+      <p>Voulez-vous vraiment supprimer cette tâche ? Cette action est irréversible.</p>
+    </div>
+
+    <div class="popup-footer">
+      <button type="button" class="btn-cancel" (click)="cancelDelete()">
+        Non, annuler
+      </button>
+
+      <button type="button" class="btn-confirm-delete" (click)="deleteTask()">
+        Oui, supprimer
+      </button>
+    </div>
+
   </div>
 </div>

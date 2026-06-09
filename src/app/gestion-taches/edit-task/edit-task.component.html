@@ -1,0 +1,89 @@
+<div class="edit-task-container">
+
+  <div class="page-header">
+    <div class="header-left">
+      <button type="button" class="btn-back" (click)="cancel()">
+        <span class="icon">←</span> Retour
+      </button>
+      <div class="header-text">
+        <h2>Modifier la tâche</h2>
+        <p>Mettez à jour les détails, les dates d'échéance et la priorité de ce ticket.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container-card">
+    <form (ngSubmit)="updateTask()" class="task-form">
+
+      <div class="form-group">
+        <label for="task-title">Titre de la tâche</label>
+        <input
+          id="task-title"
+          type="text"
+          [(ngModel)]="task.title"
+          name="title"
+          required
+          placeholder="Ex: Intégrer les maquettes de la page d'accueil"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="task-desc">Description</label>
+        <textarea
+          id="task-desc"
+          [(ngModel)]="task.description"
+          name="description"
+          rows="4"
+          placeholder="Ajoutez des détails ou des consignes pour cette tâche..."
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-1">
+          <label>Date de début</label>
+          <input
+            type="datetime-local"
+            [(ngModel)]="task.start_date"
+            name="start_date"
+          />
+        </div>
+
+        <div class="form-group flex-1">
+          <label>Date de fin</label>
+          <input
+            type="datetime-local"
+            [(ngModel)]="task.end_date"
+            name="end_date"
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Priorité</label>
+        <div class="select-wrapper">
+          <select [(ngModel)]="task.priority" name="priority">
+            <option value="Basse">Basse</option>
+            <option value="Moyenne">Moyenne</option>
+            <option value="Haute">Haute</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions-wrapper">
+        <button type="button" class="btn-cancel" (click)="cancel()">
+          Annuler
+        </button>
+        
+        <button type="submit" class="btn-save">
+          Enregistrer les modifications
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="error-banner animate-fade" *ngIf="showError">
+    <span class="icon">⚠️</span> {{ errorMessage }}
+  </div>
+
+</div>

@@ -1,0 +1,93 @@
+<div class="user-detail-page">
+  <div class="page-header">
+    <div class="header-left">
+      <button type="button" (click)="retour()" class="btn-back">
+        <span class="icon">←</span> Retour
+      </button>
+      <div class="header-title">
+        <h2>Pointage utilisateur</h2>
+        <p>Filtrez par année, mois ou jour pour analyser les temps d'application</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="filters-card">
+    <div class="filters-grid">
+      <div class="field-group">
+        <label for="pointageYear">Année</label>
+        <div class="select-wrapper">
+          <select id="pointageYear" [(ngModel)]="selectedYear" (change)="onYearChange()">
+            <option [ngValue]="null">Toutes les années</option>
+            <option *ngFor="let y of years" [ngValue]="y">{{ y }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="pointageMonth">Mois</label>
+        <div class="select-wrapper">
+          <select id="pointageMonth" [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+            <option [ngValue]="null">Tous les mois</option>
+            <option *ngFor="let m of months" [ngValue]="m.value">{{ m.label }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="pointageDay">Jour</label>
+        <div class="select-wrapper">
+          <select id="pointageDay" [(ngModel)]="selectedDay">
+            <option [ngValue]="null">Tous les jours</option>
+            <option *ngFor="let d of days" [ngValue]="d">{{ d }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group action-cell">
+        <button type="button" class="btn-search" (click)="onSearch()">
+          🔍 Rechercher
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <div *ngIf="data.length > 0; else noData">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>Utilisateur</th>
+            <th>Application</th>
+            <th>Période (Début / Fin)</th>
+            <th class="text-right">Durée</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of data">
+            <td class="user-cell">
+              <div class="user-profile-info">
+                <span class="user-main-name">{{ p.user }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="app-tag">{{ p.app }}</span>
+            </td>
+            <td class="date-cell">
+              <div class="date-row"> {{ p.start_app }}</div>
+              <div class="date-row end-date" *ngIf="p.fin_app">{{ p.fin_app }}</div>
+            </td>
+            <td class="text-right duration-cell">
+              <span class="duration-badge">{{ formatDuration(p.duree) }}</span>      
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <div class="empty-state">
+        <p>Aucun pointage trouvé pour les filtres sélectionnés.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

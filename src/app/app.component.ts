@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,16 +8,10 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'admin-dashboard';
-  currentUrl = '';
 
-  constructor(private router: Router) {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
-      this.currentUrl = event.url;
-    });
-  }
+  constructor(private router: Router) {}
 
   isLoginPage() {
-    // Masque navbar/sidebar pour toute route commençant par /login
-    return this.currentUrl.startsWith('/login');
+    return this.router.url.startsWith('/login');
   }
 }

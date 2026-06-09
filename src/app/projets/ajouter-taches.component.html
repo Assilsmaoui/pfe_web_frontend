@@ -8,9 +8,13 @@
         <h2 style="margin: 0;">Planification des tâches du projet <span *ngIf="nomProjet">- {{ nomProjet }}</span></h2>
        
       </div>
-      <button type="button" class="btn-add-outline" (click)="addTaskForm()">
-        <span>+</span> Ajouter une tâche
-      </button>
+   <button
+  *ngIf="!isEditMode"
+  type="button"
+  class="btn-add-outline"
+  (click)="addTaskForm()">
+  <span>+</span> Ajouter une tâche
+</button>
     </div>
 
     <form (ngSubmit)="submitTaches()" class="tasks-form">
@@ -38,23 +42,31 @@
             </div>
 
             <div class="form-group full-width">
-              <label>Assigner à</label>
-              <select multiple [(ngModel)]="tache.user_ids" name="user_ids{{i}}" class="multi-select-small">
-                <option *ngFor="let membre of membresProjet" [value]="membre._id">
-                  {{ membre.username }} ({{ membre.domaine }})
-                </option>
-              </select>
+            <div class="form-group full-width" *ngIf="!isEditMode">
+  <label>Assigner à</label>
+  <select multiple [(ngModel)]="tache.user_ids" name="user_ids{{i}}" class="multi-select-small">
+    <option *ngFor="let membre of membresProjet" [value]="membre._id">
+      {{ membre.username }} ({{ membre.domaine }})
+    </option>
+  </select>
+</div>
             </div>
 
             <div class="form-row">
               <div class="form-group">
                 <label>Début</label>
-                <input type="date" [(ngModel)]="tache.start_date" name="start_date{{i}}" />
+                <!-- <input type="date" [(ngModel)]="tache.start_date" name="start_date{{i}}" /> -->
+                 <input type="datetime-local" [(ngModel)]="tache.start_date" name="start_date{{i}}" />
+            
               </div>
+            </div>
+            <div class="form-row">
               <div class="form-group">
                 <label>Échéance</label>
-                <input type="date" [(ngModel)]="tache.end_date" name="end_date{{i}}" />
-              </div>
+                <!-- <input type="date" [(ngModel)]="tache.end_date" name="end_date{{i}}" /> -->
+<input type="datetime-local"
+       [(ngModel)]="tache.end_date"
+       name="end_date{{i}}" />            </div>
             </div>
 
             <div class="form-group full-width">
@@ -70,8 +82,31 @@
       </div>
 
       <div class="form-footer">
-        <button type="submit" class="btn-submit-all">Enregistrer toutes les tâches</button>
-      </div>
+<button type="submit" class="btn-submit-all">
+  {{ isEditMode ? 'Modifier la tache' : 'Enregistrer toutes les tâches' }}
+</button>      </div>
     </form>
   </div>
+</div>
+<!-- Popup erreur -->
+<div class="popup-overlay" *ngIf="showErrorPopup">
+
+  <div class="popup-container">
+
+    <div class="popup-header">
+      <h3>Erreur d'affectation automatique</h3>
+    </div>
+
+    <div class="popup-body">
+      <pre>{{ errorMessage }}</pre>
+    </div>
+
+    <div class="popup-footer">
+      <button class="btn-close-popup" (click)="closePopup()">
+        Fermer
+      </button>
+    </div>
+
+  </div>
+
 </div>

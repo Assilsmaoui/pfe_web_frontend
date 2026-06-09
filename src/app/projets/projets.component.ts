@@ -1,28 +1,36 @@
 // ...existing code...
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { UserService } from '../services/user.service';
-
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projets',
   templateUrl: './projets.component.html',
-  styleUrls: ['./projets.component.css'],
-  standalone: true,
-  imports: [CommonModule, RouterModule]
+  styleUrls: ['./projets.component.css']
 })
 export class ProjetsComponent implements OnInit {
-    getUsernameById(id: string | undefined): string {
-      if (!id) return '';
-      const user = this.users?.find((u: any) => u._id === id);
-      return user ? user.username : id;
-    }
+
+  // ================= USERS =================
+  users: any[] = [];
+
+  getUsernameById(id: string | undefined): string {
+    if (!id) return '';
+    const user = this.users?.find((u: any) => u._id === id);
+    return user ? user.username : id;
+  }
+
+  // ================= UI REF =================
   @ViewChild('listeProjets') listeProjets!: ElementRef;
+
+  // ================= DATA =================
   projets: any[] = [];
   showAddForm = false;
-  users: any[] = [];
+
+  page = 1;
+  pageSize = 3;
+  total = 0;
+
   newProjet = {
     nom_projet: '',
     description: '',
@@ -32,28 +40,54 @@ export class ProjetsComponent implements OnInit {
     membres: [] as string[]
   };
 
-  constructor(private http: HttpClient, private userService: UserService) {}
+  // ================= DELETE MODAL =================
+  showDeleteModal = false;
+  projectToDelete: any = null;
+
+  constructor(
+    private projectService: ProjectService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.getProjets();
+    this.fetchPaginatedProjects();
+
     this.userService.getUsers().subscribe(users => {
       this.users = users;
     });
   }
 
-  getProjets() {
-    this.http.get<any[]>('http://localhost:8000/projects/').subscribe(data => {
-      this.projets = data;
-    });
+  // ================= LIST =================
+  fetchPaginatedProjects(page: number = this.page) {
+    this.projectService.getPaginatedProjects(page, this.pageSize)
+      .subscribe(data => {
+        this.projets = data.projects;
+        this.page = data.page;
+        this.pageSize = data.page_size;
+        this.total = data.total;
+      });
   }
 
+  // ================= PAGINATION =================
+  onPageChange(newPage: number) {
+    if (newPage < 1 || newPage > this.totalPages) return;
+    this.fetchPaginatedProjects(newPage);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.total / this.pageSize);
+  }
+
+  // ================= CREATE =================
   toggleAddForm() {
     this.showAddForm = !this.showAddForm;
   }
 
   addProjet() {
-    this.http.post('http://localhost:8000/projects/', this.newProjet).subscribe(() => {
-      this.getProjets();
+    this.projectService.addProject(this.newProjet).subscribe(() => {
+      this.fetchPaginatedProjects();
+
       this.newProjet = {
         nom_projet: '',
         description: '',
@@ -62,12 +96,54 @@ export class ProjetsComponent implements OnInit {
         date_fin: '',
         membres: []
       };
+
       this.showAddForm = false;
+
       setTimeout(() => {
         if (this.listeProjets) {
           this.listeProjets.nativeElement.scrollIntoView({ behavior: 'smooth' });
         }
       }, 200);
     });
+  }
+
+  // ================= EDIT =================
+  editProject(project: any) {
+    console.log("CLICK PROJECT =", project);
+
+    const projectId = project?._id;
+
+    console.log("PROJECT ID =", projectId);
+
+    if (!projectId) return;
+
+    this.router.navigate(['/create-projet', projectId]);
+  }
+
+  // ================= DELETE MODAL =================
+  openDeleteModal(project: any) {
+    this.projectToDelete = project;
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.projectToDelete = null;
+  }
+
+  confirmDelete() {
+    if (!this.projectToDelete?._id) return;
+
+    this.projectService.deleteProject(this.projectToDelete._id)
+      .subscribe({
+        next: () => {
+          this.fetchPaginatedProjects(this.page);
+          this.closeDeleteModal();
+        },
+        error: (err) => {
+          console.error("DELETE ERROR", err);
+          this.closeDeleteModal();
+        }
+      });
   }
 }

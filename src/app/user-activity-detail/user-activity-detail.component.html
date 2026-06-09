@@ -1,0 +1,77 @@
+<div class="users-page-wrapper">
+  <div class="back-navigation">
+    <button type="button" class="btn-back" (click)="goBack()">
+      <span class="back-arrow">←</span> Retour à la liste
+    </button>
+  </div>
+
+  <div class="page-header">
+    <div class="header-title">
+      <h2>Activité des taches</h2>
+      <p>Visualisez l'analyse OCR et la répartition du temps par application</p>
+    </div>
+  </div>
+
+  <div class="tabs-container">
+    <button 
+      class="tab-btn" 
+      [class.active]="selectedType === 'periodic'"
+      (click)="setType('periodic')">
+       Résumé (Periodic)
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="selectedType === 'switch'"
+      (click)="setType('switch')">
+       Durée Apps (Switch)
+    </button>
+  </div>
+
+  <div *ngIf="selectedType === 'periodic'" class="content-section">
+    <div class="section-title-area">
+      <h3>Résumés Capture d'ecrans</h3>
+    </div>
+
+    <div class="cards-grid" *ngIf="logs.length; else noLogs">
+      <div class="activity-card" *ngFor="let l of logs">
+        <div class="card-header-app">
+          <h4 class="app-name">{{ l.app }}</h4>
+        </div>
+        <div class="card-body-ocr">
+          <p class="ocr-text" [class.no-text]="!l.ocr_text">
+            {{ l.ocr_text || 'Aucun résumé disponible pour cette capture.' }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedType === 'switch'" class="content-section">
+    <div class="section-title-area">
+      <h3>Temps passé dans les applications</h3>
+    </div>
+
+    <div class="cards-grid" *ngIf="logs.length; else noLogs">
+      <div class="activity-card duration-card" *ngFor="let l of logs">
+        <div class="card-header-app">
+          <span class="app-avatar text-cyan">⏱</span>
+          <h4 class="app-name">{{ l.app }}</h4>
+        </div>
+        <div class="card-body-duration">
+          <span class="duration-highlight">
+            {{ formatDuration(l.duration || l.duree || 0) }} 
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noLogs>
+    <div class="table-container">
+      <div class="empty-state">
+        <div class="empty-icon">🔍</div>
+        <p>Aucune donnée d'activité trouvée pour le moment.</p>
+      </div>
+    </div>
+  </ng-template>
+</div>

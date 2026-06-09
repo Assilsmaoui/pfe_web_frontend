@@ -1,1 +1,8 @@
-/* This file has been emptied to use only styles.css */
+.dashboard-page {
+	margin-top: -30px;
+	padding-top: 0;
+}
+
+.dashboard-page h1 {
+	margin-top: 0;
+}

@@ -1,0 +1,44 @@
+.create-user-page {
+	margin-left: var(--sidebar-width, 10px);
+	margin-top: -20px;
+	padding: 0 40px 40px;
+	background-color: #fcfcfc;
+	min-height: calc(100vh - 75px);
+	box-sizing: border-box;
+}
+
+.form-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.form-card {
+	width: 100%;
+	max-width: 650px;
+}
+
+.form-header {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.btn-back {
+	border: none;
+	background: #e9eef9;
+	color: #1f2937;
+	border-radius: 12px;
+	padding: 10px 16px;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.btn-back:hover {
+	background: #dce5f7;
+}
+

@@ -15,3 +15,122 @@ input, select {
 button {
   margin-right: 8px;
 }
+
+
+
+
+
+/* ==========================================================================
+   POPUP D'ERREUR (Adapté exactement à votre structure HTML)
+   ========================================================================== */
+
+/* Arrière-plan de la popup avec effet de flou moderne (Glassmorphism) */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(24, 24, 27, 0.40); /* Teinte basée sur votre --zinc-900 */
+  backdrop-filter: blur(5px); /* Floute l'application en arrière-plan */
+  -webkit-backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+/* Conteneur principal de la popup */
+.popup-container {
+  width: 550px;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 20px; /* Aligné sur vos conteneurs de tableaux (20px) */
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border);
+  animation: popupEntry 0.2s ease-out;
+}
+
+/* En-tête de la popup (Alerte douce, style SaaS haut de gamme) */
+.popup-header {
+  background: #fff5f5; /* Fond rouge/rose très léger, pas agressif */
+  padding: 20px 24px;
+  border-bottom: 1px solid #fee2e2;
+}
+
+.popup-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #991b1b; /* Texte bordeaux élégant */
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Corps de la popup (Zone du message d'erreur) */
+.popup-body {
+  padding: 24px;
+  max-height: 300px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+/* Stylisation du bloc <pre> pour le message technique */
+.popup-body pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.6;
+  margin: 0;
+  background-color: #f8fafc; /* Effet bloc de code */
+  border: 1px solid #e2e8f0;
+  padding: 14px 18px;
+  border-radius: 10px;
+}
+
+/* Pied de page de la popup */
+.popup-footer {
+  padding: 16px 24px;
+  background-color: #f8fafc; /* Léger contraste avec le body */
+  border-top: 1px solid var(--border);
+  text-align: right;
+}
+
+/* Bouton Fermer (Reprend votre dégradé signature Zinc-900) */
+.btn-close-popup {
+  background: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-close-popup:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-close-popup:active {
+  transform: translateY(0);
+}
+
+/* Animation subtile à l'ouverture de la popup */
+@keyframes popupEntry {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

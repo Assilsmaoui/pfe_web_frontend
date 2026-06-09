@@ -1,4 +1,21 @@
-<div>
-	<h1>Bienvenue sur le Dashboard</h1>
-	<!-- Contenu du dashboard ici -->
+<div class="dashboard">
+
+  <div class="card">
+    <h3>Utilisateurs</h3>
+    <p>Total: {{ stats.totalUtilisateurs }}</p>
+    <p>Connectés: {{ stats.utilisateursConnectes }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Tâches</h3>
+    <p>Total: {{ stats.totalTaches }}</p>
+    <p>Terminées: {{ stats.tachesTerminees }}</p>
+    <p>En cours: {{ stats.tachesEnCours }}</p>
+  </div>
+
+  <div class="card">
+    <h3>Temps de travail</h3>
+    <p>Aujourd'hui: {{ stats.tempsTravailAujourdhui }} sec</p>
+  </div>
+
 </div>

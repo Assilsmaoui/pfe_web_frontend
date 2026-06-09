@@ -1,5 +1,4 @@
-
-import { Component } from '@angular/core';
+import { Component, HostListener, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,16 +7,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+
   showMenu = false;
   adminName = '';
 
-  constructor(private router: Router) {
-    // Récupérer le nom de l'admin connecté (exemple depuis localStorage)
+  constructor(
+    private router: Router,
+    private eRef: ElementRef
+  ) {
     this.adminName = localStorage.getItem('adminName') || 'Admin';
   }
 
-  toggleMenu() {
+  toggleMenu(event: Event) {
+    event.stopPropagation();
     this.showMenu = !this.showMenu;
+  }
+
+  // ✅ fermer seulement si clic hors navbar
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+
+    const clickedInside = this.eRef.nativeElement.contains(event.target);
+
+    if (!clickedInside) {
+      this.showMenu = false;
+    }
   }
 
   logout() {
@@ -29,7 +43,6 @@ export class NavbarComponent {
   }
 
   editProfile() {
-    // Rediriger vers la page de modification du profil (à implémenter)
     this.router.navigate(['/profil']);
     this.showMenu = false;
   }

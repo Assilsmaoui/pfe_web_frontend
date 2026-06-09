@@ -4,47 +4,125 @@
       <h2>Liste des Projets</h2>
       <p>Gérez et suivez l'état d'avancement de vos dossiers clients.</p>
     </div>
-    <button routerLink="/projets/ajouter" class="btn-add-project">
-      <span class="icon">+</span> Nouveau Projet
-    </button>
-  </div>
-
-  <div class="projects-grid">
-    <div class="project-card" *ngFor="let projet of projets">
-      <div class="card-status-bar" [ngClass]="'status-' + projet.statut?.toLowerCase()"></div>
-      
-      <div class="card-content">
-        <div class="project-main">
-          <h3 class="project-name">{{ projet.nom_projet || projet.nom }}</h3>
-          <p class="project-description">{{ projet.description }}</p>
-        </div>
-
-        <div class="project-details">
-          <div class="detail-item">
-            <span class="label">📅 Période</span>
-            <span class="value">{{ projet.date_debut | date:'dd/MM' }} — {{ projet.date_fin | date:'dd/MM/yyyy' }}</span>
-          </div>
-
-          <div class="detail-item">
-            <span class="label">👥 Équipe</span>
-         <div class="members-names-list"> <span class="member-name-badge" *ngFor="let membreId of projet.membres">
-    {{ getUsernameById(membreId) }} </span>
-  <span class="no-members-text" *ngIf="!projet.membres?.length">Non assigné</span>
-</div>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <span class="status-pill" [ngClass]="'pill-' + projet.statut?.toLowerCase()">
-            {{ projet.statut }}
-          </span>
-          <a class="btn-view" [routerLink]="['/projets', projet._id, 'details']">Détails →</a>
-        </div>
-      </div>
+    <div class="header-actions">
+      <a routerLink="/projets/ajouter" class="btn-add">
+        <span class="icon">+</span> Ajouter projet
+      </a>
     </div>
   </div>
 
-  <div *ngIf="!projets?.length" class="empty-state">
-    <p>Aucun projet n'a été créé pour le moment.</p>
+  <div class="table-container">
+    <table *ngIf="projets.length" class="custom-table">
+      <thead>
+        <tr>
+          <th>Projet</th>
+          <th>Description</th>
+          <th>Période</th>
+          <th>Équipe</th>
+          <th>Statut</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let projet of projets">
+          <td class="project-name-cell">
+            <span class="project-title">{{ projet.nom_projet || projet.nom }}</span>
+          </td>
+          <td class="description-cell">{{ projet.description }}</td>
+          <td class="date-cell">
+            <span>📅 {{ projet.date_debut | date:'dd/MM' }} - {{ projet.date_fin | date:'dd/MM/yyyy' }}</span>
+          </td>
+          <td>
+            <div class="members-names-list">
+              <span class="member-name-badge" *ngFor="let membreId of projet.membres">
+                {{ getUsernameById(membreId) }}
+              </span>
+              <span class="no-members-text" *ngIf="!projet.membres?.length">Non assigné</span>
+            </div>
+          </td>
+          <td>
+            <span class="badge" [ngClass]="projet.statut?.toLowerCase() === 'actif' ? 'badge-active' : 'badge-inactive'">
+              {{ projet.statut }}
+            </span>
+          </td>
+          
+      <td class="text-right">
+  <div class="actions-buttons-group">
+    <a class="btn-view" [routerLink]="['/projets', projet._id, 'details']">Détails →</a>
+
+    <button 
+      type="button" 
+      class="btn-icon-only btn-edit" 
+      title="Modifier projet" 
+      (click)="editProject(projet)"
+    >
+      <i class="fa-solid fa-pen-to-square"></i>
+    </button>
+
+    <button 
+      type="button" 
+      class="btn-icon-only btn-delete" 
+      title="Supprimer projet" 
+      (click)="openDeleteModal(projet)"
+    >
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
+</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="projets.length && totalPages > 1" class="pagination-wrapper">
+      <div class="pagination-info">
+        Affichage de <strong>{{ page }}</strong> sur <strong>{{ totalPages }}</strong> pages
+        <span class="total-badge">{{ total }} projets</span>
+      </div>
+
+      <div class="pagination-controls">
+        <button class="pagination-btn" (click)="onPageChange(page - 1)" [disabled]="page === 1">
+          <span class="arrow">&lsaquo;</span> Précédent
+        </button>
+
+        <div class="page-indicator">
+          <span class="current-page">{{ page }}</span>
+        </div>
+
+        <button class="pagination-btn" (click)="onPageChange(page + 1)" [disabled]="page === totalPages">
+          Suivant <span class="arrow">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="!projets.length" class="empty-state">
+      <p>Aucun projet n'a été créé pour le moment.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal" *ngIf="showDeleteModal">
+  <div class="modal-content">
+    
+    <div class="modal-alert-icon-container">
+      <i class="fa-solid fa-trash-can modal-trash-icon"></i>
+    </div>
+
+    <h3>Confirmation</h3>
+
+    <p>
+      Voulez-vous vraiment supprimer le projet :
+      <b class="delete-target">{{ projectToDelete?.nom_projet }}</b> ?
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">
+        Annuler
+      </button>
+
+      <button class="btn-confirm-delete" (click)="confirmDelete()">
+        Supprimer
+      </button>
+    </div>
+
   </div>
 </div>

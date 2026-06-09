@@ -48,6 +48,10 @@ export class CreateTaskComponent implements OnInit {
         if (err?.error) {
           if (typeof err.error === 'string') {
             msg += err.error;
+          } else if (err.error.detail) {
+            msg += Array.isArray(err.error.detail)
+              ? err.error.detail.join(', ')
+              : err.error.detail;
           } else if (err.error.message) {
             msg += err.error.message;
           } else {

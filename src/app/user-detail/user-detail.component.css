@@ -1,0 +1,63 @@
+.user-detail-page {
+	margin-left: var(--sidebar-width, 10px);
+	margin-top: -20px;
+	padding: 0 40px 40px;
+	background-color: #fcfcfc;
+	min-height: calc(100vh - 75px);
+	box-sizing: border-box;
+}
+
+.table-container {
+	background: white;
+	border-radius: 16px;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+	overflow: hidden;
+}
+
+.page-header {
+	margin-bottom: 30px;
+	padding-top: 10px;
+}
+
+.header-left {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	flex-wrap: wrap;
+}
+
+.btn-back {
+	border: none;
+	background: #e9eef9;
+	color: #1f2937;
+	border-radius: 12px;
+	padding: 10px 16px;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.btn-back:hover {
+	background: #dce5f7;
+}
+
+.header-title h2 {
+	margin: 0;
+}
+
+.header-title p {
+	margin: 4px 0 0;
+	color: #6b7280;
+}
+
+.filters-card {
+	background: #ffffff;
+	border-radius: 16px;
+	border: 1px solid #e2e8f0;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+	padding: 24px;
+	margin-bottom: 24px;
+}

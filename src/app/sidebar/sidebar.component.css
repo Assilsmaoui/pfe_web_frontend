@@ -82,7 +82,6 @@
 
 .icon {
   margin-right: 14px;
-  font-size: 18px;
   opacity: 0.8;
 }
 
@@ -122,11 +121,21 @@
   /* Arrière-plan pour faire ressortir le blanc */
   background-color: #475569; /* Gris ardoise pro */
   color: #ffffff !important;  /* L'icône elle-même en BLANC */
+  font-size: 18px;
   
   border-radius: 8px;
   margin-right: 12px;
-  font-size: 16px;
   font-style: normal;
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
   transition: all 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

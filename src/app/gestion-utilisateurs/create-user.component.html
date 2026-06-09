@@ -1,7 +1,10 @@
-<div class="main-content">
+<div class="create-user-page">
   <div class="form-container">
     <div class="form-card">
       <div class="form-header">
+        <button (click)="retour()" class="btn-back" type="button">
+          <span class="icon">←</span> Retour
+        </button>
         <div class="header-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -9,8 +12,15 @@
           </svg>
         </div>
         <div class="header-text">
-          <h2>Créer un utilisateur</h2>
-          <p>Ajoutez un nouveau membre à votre équipe</p>
+<h2>
+  {{ isEditMode ? 'Modifier un utilisateur' : 'Créer un utilisateur' }}
+</h2>     
+    <p>
+  {{ isEditMode
+      ? 'Modifiez les informations de l’utilisateur'
+      : 'Ajoutez un nouveau membre à votre équipe'
+  }}
+</p>
         </div>
       </div>
 
@@ -31,10 +41,10 @@
             <input id="domaine" type="text" name="domaine" placeholder="ex: Marketing" required />
           </div>
 
-          <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input id="password" type="password" name="password" placeholder="••••••••" required />
-          </div>
+         <div class="form-group" *ngIf="!isEditMode">
+  <label for="password">Mot de passe</label>
+  <input id="password" type="password" name="password" placeholder="••••••••" required />
+</div>
         </div>
 
         <div class="form-actions">

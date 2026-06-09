@@ -4,16 +4,18 @@
       <h2>Liste des utilisateurs</h2>
       <p>Gérez les accès et les informations des membres de la plateforme</p>
     </div>
+
     <a routerLink="/gestion-utilisateurs/ajouter" class="btn-add">
       <span class="icon">+</span> Ajouter un utilisateur
     </a>
   </div>
 
   <div class="table-container">
+
     <div *ngIf="loading" class="state-message">
       <div class="spinner"></div> Chargement des données...
     </div>
-    
+
     <div *ngIf="error" class="error-banner">
       <span class="icon">⚠️</span> {{ error }}
     </div>
@@ -28,28 +30,109 @@
           <th class="text-right">Actions</th>
         </tr>
       </thead>
+
       <tbody>
         <tr *ngFor="let user of users">
+
           <td class="user-cell">
-            <div class="avatar-circle">{{ user.username.charAt(0).toUpperCase() }}</div>
             <span class="username">{{ user.username }}</span>
           </td>
-          <td><span class="email-text">{{ user.email }}</span></td>
-          <td><span class="domain-tag">{{ user.domaine }}</span></td>
+
+          <td>
+            <span class="email-text">{{ user.email }}</span>
+          </td>
+
+          <td>
+            <span class="domain-tag">{{ user.domaine }}</span>
+          </td>
+
           <td>
             <span class="badge" [ngClass]="user.is_active ? 'badge-active' : 'badge-inactive'">
               {{ user.is_active ? 'Actif' : 'Inactif' }}
             </span>
           </td>
+
           <td class="text-right">
-            <button class="btn-icon">⚙️</button>
+            <div class="actions-buttons-group">
+              <button
+                type="button"
+                class="btn-view"
+                title="Voir pointage utilisateur"
+                [disabled]="!getUserId(user)"
+                (click)="goToUserDetail(getUserId(user))"
+              >
+                Détails →
+              </button>
+
+              <button
+                type="button"
+                class="btn-edit"
+                title="Modifier utilisateur"
+                (click)="editUser(user)"
+              >
+ <i class="fa-solid fa-pen-to-square"></i>              </button>
+
+              <button
+                type="button"
+                class="btn-delete"
+                title="Supprimer utilisateur"
+                (click)="openDeleteModal(user)"
+              >
+  <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
           </td>
+
         </tr>
       </tbody>
+
     </table>
+
+    <div *ngIf="!loading && users.length && totalPages > 1" class="pagination-wrapper">
+      <div class="pagination-info">
+        Affichage de <strong>{{ page }}</strong> sur <strong>{{ totalPages }}</strong> pages
+        <span class="total-badge">{{ total }} utilisateurs</span>
+      </div>
+
+      <div class="pagination-controls">
+        <button class="pagination-btn" (click)="onPageChange(page - 1)" [disabled]="page === 1">
+          <span class="arrow">&lsaquo;</span> Précédent
+        </button>
+        <div class="page-indicator">
+          <span class="current-page">{{ page }}</span>
+        </div>
+        <button class="pagination-btn" (click)="onPageChange(page + 1)" [disabled]="page === totalPages">
+          Suivant <span class="arrow">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
 
     <div *ngIf="!loading && !users.length && !error" class="empty-state">
       <p>Aucun utilisateur n'a été trouvé dans la base de données.</p>
     </div>
+
+  </div>
+</div>
+
+<div class="modal" *ngIf="showDeleteModal">
+  <div class="modal-content">
+    
+    <h3>Confirmation</h3>
+
+    <p>
+      Voulez-vous vraiment supprimer 
+      <b class="delete-target">{{ userToDelete?.username }}</b> ?
+    </p>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">
+        Annuler
+      </button>
+
+      <button class="btn-confirm-delete" (click)="confirmDelete()">
+        Supprimer
+      </button>
+    </div>
+
   </div>
 </div>
